@@ -5,9 +5,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.usersApp.model.User;
 import org.example.usersApp.service.UserService;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Optional;
 
 @WebServlet("/user")
 public class UserController extends HttpServlet {
@@ -19,13 +22,31 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO: 1) all users
-        //userService.getAllUsers();
-        //TODO: 2) user by id
-        //TODO: for non existent id
-        //userService.getUserById();
+        resp.setContentType("text/html");
+        PrintWriter out = resp.getWriter();
 
-        super.doGet(req, resp);
+        //TODO: 1) all users
+        userService.getAllUsers();
+
+        //TODO: 2) user by id
+        String action = req.getParameter("action");
+        String userIdParam = req.getParameter("userId");
+        if (userIdParam != null && !userIdParam.isEmpty()) {
+            try {
+                long userId = Integer.parseInt(userIdParam);
+                Optional<User> user = userService.getUserById(userId);
+                if (user.isPresent()) {
+                    resp.setStatus(200);
+                    out.println("<p>Пользователь с ID " + userId);
+                } else {
+                    resp.setStatus(404);
+                    out.println("<p>Пользователь с ID " + userId + " не найден</p>");
+                }
+            } catch (NumberFormatException e) {
+                out.println("<p>Некорректный ID пользователя</p>");
+            }
+            super.doGet(req, resp);
+        }
     }
 
     @Override
