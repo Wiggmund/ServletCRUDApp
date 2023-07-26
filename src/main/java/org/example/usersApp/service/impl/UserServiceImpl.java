@@ -6,6 +6,7 @@ import org.example.usersApp.model.User;
 import org.example.usersApp.repository.UserRepository;
 import org.example.usersApp.service.UserService;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,12 +19,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        return userRepository.findAllUsers();
     }
 
     @Override
-    public Optional<User> getUserById(Long userId) {
-        return Optional.empty();
+    public Optional<User> getUserById(Long userId) throws SQLException {
+        return userRepository.findUserById(userId);
     }
 
     @Override
