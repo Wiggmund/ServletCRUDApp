@@ -1,0 +1,15 @@
+package org.example.usersApp.db;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBConnectionDriverManager implements DBConnection {
+    private final String URL = "jdbc:postgresql:usersapp";
+    private final String USERNAME = "postgres";
+    private final String PASSWORD = "root";
+    @Override
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    }
+}
