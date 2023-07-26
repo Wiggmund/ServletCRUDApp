@@ -10,6 +10,7 @@ import org.example.usersApp.service.UserService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Optional;
 
 @WebServlet("/user")
@@ -44,8 +45,9 @@ public class UserController extends HttpServlet {
                 }
             } catch (NumberFormatException e) {
                 out.println("<p>Некорректный ID пользователя</p>");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-            super.doGet(req, resp);
         }
     }
 
