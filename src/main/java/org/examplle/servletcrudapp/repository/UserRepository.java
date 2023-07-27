@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository {
-    List<User> findAllUsers();
+    List<User> findAllUsers() throws SQLException;
     Optional<User> findUserById(Long userId) throws SQLException;
     User createUser(CreateUserDto dto);
     User updateUser(UpdateUserDto dto);

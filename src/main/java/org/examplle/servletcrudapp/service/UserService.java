@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    List<User> getAllUsers();
+    List<User> getAllUsers() throws SQLException;
     Optional<User> getUserById(Long userId) throws SQLException;
     User createUser(CreateUserDto dto);
     User updateUser(UpdateUserDto dto);
