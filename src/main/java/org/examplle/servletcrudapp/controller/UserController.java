@@ -18,6 +18,11 @@ import java.util.Optional;
 
 @WebServlet("/user")
 public class UserController extends HttpServlet {
+
+    private static final String ID = "id";
+    private static final String FIRST_NAME = "firstName";
+    private static final String LAST_NAME = "lastName";
+    private static final String AGE = "age";
     private final UserService userService;
 
     public UserController(UserService userService) {
