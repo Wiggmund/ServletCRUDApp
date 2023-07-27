@@ -13,5 +13,5 @@ public interface UserService {
     Optional<User> getUserById(Long userId);
     User createUser(CreateUserDto dto);
     User updateUser(UpdateUserDto dto) throws SQLException;
-    User deleteUserById(Long userId);
+    void deleteUserById(Long userId) throws SQLException;
 }

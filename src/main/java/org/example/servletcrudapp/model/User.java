@@ -6,10 +6,17 @@ public class User {
     private String lastName;
     private Integer age;
 
+<<<<<<< HEAD
     public User(Long id, String first_name, String last_name, Integer age) {
         this.id = id;
         this.firstName = first_name;
         this.lastName = last_name;
+=======
+    public User(Long id, String firstName, String lastName, Integer age) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+>>>>>>> alexbranch
         this.age = age;
     }
 

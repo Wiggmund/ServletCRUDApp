@@ -8,6 +8,7 @@ public class DBConnectionDriverManager implements DBConnection {
     private final String URL = "jdbc:postgresql://localhost:5432/servletcrud";
     private final String USERNAME = "postgres";
     private final String PASSWORD = "root";
+
     @Override
     public Connection getConnection() throws SQLException {
         try {

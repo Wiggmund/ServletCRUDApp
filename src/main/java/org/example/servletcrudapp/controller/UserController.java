@@ -6,8 +6,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.servletcrudapp.db.DBConnectionDriverManager;
+
 import org.example.servletcrudapp.dto.UpdateUserDto;
 import org.example.servletcrudapp.model.User;
+
 import org.example.servletcrudapp.repository.impl.UserRepositoryImpl;
 import org.example.servletcrudapp.service.UserService;
 import org.example.servletcrudapp.service.impl.UserServiceImpl;
@@ -15,23 +17,25 @@ import org.example.servletcrudapp.service.impl.UserServiceImpl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = "/user")
+@WebServlet("/user")
 public class UserController extends HttpServlet {
     private static final String ID = "id";
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
     private static final String AGE = "age";
-    private final UserService userService;
+    private UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     public UserController() {
         this(new UserServiceImpl(
                 new UserRepositoryImpl(
@@ -50,10 +54,7 @@ public class UserController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO: create
-        //TODO: check whether all fields are supplied
-    }
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {}
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -76,8 +77,22 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO: delete
-        //TODO: for non existent id
+        String userIdParam = parsePUTBody(req).get(ID);
+        PrintWriter writer = resp.getWriter();
+
+        if (userIdParam == null || userIdParam.isEmpty()) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        Long userId = Long.parseLong(userIdParam);
+
+        try {
+            userService.deleteUserById(userId);
+        } catch (SQLException e) {
+            writer.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     private Map<String, String> parsePUTBody(HttpServletRequest req) throws IOException {

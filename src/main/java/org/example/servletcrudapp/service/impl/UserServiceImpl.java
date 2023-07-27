@@ -3,6 +3,7 @@ package org.example.servletcrudapp.service.impl;
 import org.example.servletcrudapp.dto.CreateUserDto;
 import org.example.servletcrudapp.dto.UpdateUserDto;
 import org.example.servletcrudapp.exception.UserNotFoundException;
+
 import org.example.servletcrudapp.model.User;
 import org.example.servletcrudapp.repository.UserRepository;
 import org.example.servletcrudapp.service.UserService;
@@ -41,7 +42,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User deleteUserById(Long userId) {
-        return null;
+    public void deleteUserById(Long userId) throws SQLException {
+        userRepository.findUserById(userId).orElseThrow(UserNotFoundException::new);
+        userRepository.deleteUserById(userId);
     }
 }
