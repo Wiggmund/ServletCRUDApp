@@ -1,4 +1,4 @@
-package org.example.usersApp.db;
+package org.example.servletcrudapp.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

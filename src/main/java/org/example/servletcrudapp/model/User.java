@@ -1,4 +1,4 @@
-package org.example.usersApp.model;
+package org.example.servletcrudapp.model;
 
 public class User {
     private Long id;

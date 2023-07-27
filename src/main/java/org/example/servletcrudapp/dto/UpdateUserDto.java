@@ -1,6 +1,4 @@
-package org.example.usersApp.dto;
-
-import java.util.Map;
+package org.example.servletcrudapp.dto;
 
 public record UpdateUserDto(
         Long id,

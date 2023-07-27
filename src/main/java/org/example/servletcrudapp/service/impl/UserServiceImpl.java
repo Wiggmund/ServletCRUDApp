@@ -1,11 +1,11 @@
-package org.example.usersApp.service.impl;
+package org.example.servletcrudapp.service.impl;
 
-import org.example.usersApp.dto.CreateUserDto;
-import org.example.usersApp.dto.UpdateUserDto;
-import org.example.usersApp.exception.UserNotFoundException;
-import org.example.usersApp.model.User;
-import org.example.usersApp.repository.UserRepository;
-import org.example.usersApp.service.UserService;
+import org.example.servletcrudapp.dto.CreateUserDto;
+import org.example.servletcrudapp.dto.UpdateUserDto;
+import org.example.servletcrudapp.exception.UserNotFoundException;
+import org.example.servletcrudapp.model.User;
+import org.example.servletcrudapp.repository.UserRepository;
+import org.example.servletcrudapp.service.UserService;
 
 import java.sql.SQLException;
 import java.util.List;
