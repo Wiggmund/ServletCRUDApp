@@ -18,6 +18,8 @@ public class UserRepositoryImpl implements UserRepository {
     private final static String FIRST_NAME_COL = "first_name";
     private final static String LAST_NAME_COL = "last_name";
     private final static String AGE_COL = "age";
+    private final static String CREATE_USER_SQL = String.format("INSERT INTO users (%s, %s, %s) VALUES(?,?,?)",
+            FIRST_NAME_COL, LAST_NAME_COL, AGE_COL);
 
     public UserRepositoryImpl(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
@@ -39,9 +41,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void createUser(CreateUserDto dto) {
-        String sql = String.format("INSERT INTO users (%s, %s, %s) VALUES(?,?,?)",
-                FIRST_NAME_COL, LAST_NAME_COL, AGE_COL);
-        try (PreparedStatement ps = dbConnection.getConnection().prepareStatement(sql)) {
+        try (PreparedStatement ps = dbConnection.getConnection().prepareStatement(CREATE_USER_SQL)) {
             ps.setString(1, dto.firstName());
             ps.setString(2, dto.lastName());
             ps.setInt(3, dto.age());
