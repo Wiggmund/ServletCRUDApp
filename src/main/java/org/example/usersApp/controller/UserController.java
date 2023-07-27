@@ -5,17 +5,25 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.usersApp.db.DBConnectionDriverManager;
+import org.example.usersApp.repository.impl.UserRepositoryImpl;
 import org.example.usersApp.service.UserService;
+import org.example.usersApp.service.impl.UserServiceImpl;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/user")
 public class UserController extends HttpServlet {
-    private final UserService userService;
+    private  UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
+    public UserController(){
+        this(new UserServiceImpl(new UserRepositoryImpl(new DBConnectionDriverManager())));
+    }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -46,7 +54,20 @@ public class UserController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //TODO: delete
         //TODO: for non existent id
-        userService.deleteUserById(1L);
-        super.doDelete(req, resp);
+        PrintWriter writer = resp.getWriter();
+        writer.println("line 1");
+        writer.close();
+        String userIdParam = req.getParameter("id");
+
+        PrintWriter writer1 = resp.getWriter();
+
+        if(userIdParam==null || userIdParam.isEmpty() ){
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+           Long userId= Long.parseLong(userIdParam);
+
+        userService.deleteUserById(userId);
     }
 }

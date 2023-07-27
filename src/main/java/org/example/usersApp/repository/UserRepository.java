@@ -13,5 +13,5 @@ public interface UserRepository {
     Optional<User> findUserById(Long userId) throws SQLException;
     User createUser(CreateUserDto dto);
     User updateUser(UpdateUserDto dto);
-    User deleteUserById(Long id);
+    void deleteUserById(Long id);
 }
