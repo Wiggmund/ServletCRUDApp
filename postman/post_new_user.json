@@ -1,0 +1,50 @@
+{
+  "info": {
+    "_postman_id": "87c61c18-58ad-4dc6-ad21-1ef3f45cc606",
+    "name": "users_anderson",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "24656251"
+  },
+  "item": [
+    {
+      "name": "добавление нового пользователя",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "firstName",
+              "value": "John",
+              "type": "text"
+            },
+            {
+              "key": "lastName",
+              "value": "Smith",
+              "type": "text"
+            },
+            {
+              "key": "age",
+              "value": "6",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/users-app/user",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "users-app",
+            "user"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
