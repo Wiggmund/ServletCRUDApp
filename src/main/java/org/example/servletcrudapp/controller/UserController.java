@@ -6,10 +6,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.servletcrudapp.db.DBConnectionDriverManager;
-
+import org.example.servletcrudapp.dto.CreateUserDto;
 import org.example.servletcrudapp.dto.UpdateUserDto;
 import org.example.servletcrudapp.model.User;
-
 import org.example.servletcrudapp.repository.impl.UserRepositoryImpl;
 import org.example.servletcrudapp.service.UserService;
 import org.example.servletcrudapp.service.impl.UserServiceImpl;
@@ -17,7 +16,6 @@ import org.example.servletcrudapp.service.impl.UserServiceImpl;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
@@ -30,7 +28,7 @@ public class UserController extends HttpServlet {
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
     private static final String AGE = "age";
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -54,9 +52,6 @@ public class UserController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {}
-
-    @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, String> parameters = parsePUTBody(req);
 
@@ -73,6 +68,14 @@ public class UserController extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String firstName = req.getParameter("firstName");
+        String lastName = req.getParameter("lastName");
+        Integer age = Integer.valueOf(req.getParameter("age"));
+        userService.createUser(new CreateUserDto(firstName, lastName, age));
     }
 
     @Override

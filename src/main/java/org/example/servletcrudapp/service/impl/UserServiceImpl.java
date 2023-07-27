@@ -3,7 +3,6 @@ package org.example.servletcrudapp.service.impl;
 import org.example.servletcrudapp.dto.CreateUserDto;
 import org.example.servletcrudapp.dto.UpdateUserDto;
 import org.example.servletcrudapp.exception.UserNotFoundException;
-
 import org.example.servletcrudapp.model.User;
 import org.example.servletcrudapp.repository.UserRepository;
 import org.example.servletcrudapp.service.UserService;
@@ -30,8 +29,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(CreateUserDto dto) {
-        return null;
+    public void createUser(CreateUserDto dto) {
+        userRepository.createUser(dto);
     }
 
     @Override

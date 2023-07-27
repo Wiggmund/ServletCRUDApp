@@ -10,8 +10,12 @@ import java.util.Optional;
 
 public interface UserService {
     List<User> getAllUsers();
+
     Optional<User> getUserById(Long userId);
-    User createUser(CreateUserDto dto);
+
     User updateUser(UpdateUserDto dto) throws SQLException;
+
     void deleteUserById(Long userId) throws SQLException;
+
+    void createUser(CreateUserDto dto);
 }
