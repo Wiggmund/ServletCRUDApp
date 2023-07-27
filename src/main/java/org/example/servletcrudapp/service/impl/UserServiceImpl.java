@@ -1,6 +1,6 @@
 package org.example.servletcrudapp.service.impl;
 
-import org.example.servletcrudapp.Exception.UserNotFoundException;
+import org.example.servletcrudapp.exception.UserNotFoundException;
 import org.example.servletcrudapp.dto.CreateUserDto;
 import org.example.servletcrudapp.dto.UpdateUserDto;
 import org.example.servletcrudapp.model.User;

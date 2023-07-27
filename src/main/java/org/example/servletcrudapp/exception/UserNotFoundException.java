@@ -1,4 +1,4 @@
-package org.example.servletcrudapp.Exception;
+package org.example.servletcrudapp.exception;
 
 
 public class UserNotFoundException extends RuntimeException {

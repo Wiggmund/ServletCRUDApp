@@ -1,6 +1,5 @@
 package org.example.servletcrudapp.repository.impl;
 
-import org.example.servletcrudapp.Exception.UserNotFoundException;
 import org.example.servletcrudapp.db.DBConnection;
 import org.example.servletcrudapp.dto.CreateUserDto;
 import org.example.servletcrudapp.dto.UpdateUserDto;
