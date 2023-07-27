@@ -2,10 +2,12 @@ package org.example.usersApp.service.impl;
 
 import org.example.usersApp.dto.CreateUserDto;
 import org.example.usersApp.dto.UpdateUserDto;
+import org.example.usersApp.exception.UserNotFoundException;
 import org.example.usersApp.model.User;
 import org.example.usersApp.repository.UserRepository;
 import org.example.usersApp.service.UserService;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +34,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(UpdateUserDto dto) {
-        return null;
+    public User updateUser(UpdateUserDto dto) throws SQLException {
+//        userRepository.findUserById(dto.id()).orElseThrow(UserNotFoundException::new);
+        return userRepository.updateUser(dto);
     }
 
     @Override
