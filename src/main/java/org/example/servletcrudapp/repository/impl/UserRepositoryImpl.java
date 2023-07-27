@@ -1,14 +1,12 @@
-package org.example.usersApp.repository.impl;
+package org.example.servletcrudapp.repository.impl;
 
-import org.example.usersApp.db.DBConnection;
-import org.example.usersApp.dto.CreateUserDto;
-import org.example.usersApp.dto.UpdateUserDto;
-import org.example.usersApp.model.User;
-import org.example.usersApp.repository.UserRepository;
+import org.example.servletcrudapp.db.DBConnection;
+import org.example.servletcrudapp.dto.CreateUserDto;
+import org.example.servletcrudapp.dto.UpdateUserDto;
+import org.example.servletcrudapp.model.User;
+import org.example.servletcrudapp.repository.UserRepository;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;

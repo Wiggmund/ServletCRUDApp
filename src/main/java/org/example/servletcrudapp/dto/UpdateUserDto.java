@@ -1,4 +1,4 @@
-package org.example.usersApp.dto;
+package org.example.servletcrudapp.dto;
 
 public record UpdateUserDto(
         String firstName,
