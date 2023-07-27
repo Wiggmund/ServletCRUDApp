@@ -32,9 +32,7 @@ public class UserController extends HttpServlet {
     public UserController() {
         this(new UserServiceImpl(
                 new UserRepositoryImpl(
-                        new DBConnectionDriverManager()
-                )
-        ));
+                        new DBConnectionDriverManager())));
     }
 
     @Override
