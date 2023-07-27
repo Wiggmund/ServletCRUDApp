@@ -6,9 +6,10 @@ public class User {
     private String lastName;
     private Integer age;
 
-    public User(String first_name, String last_name, Integer age) {
-        this.firstName = first_name;
-        this.lastName = last_name;
+    public User(Long id, String firstName, String lastName, Integer age) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.age = age;
     }
 

@@ -1,11 +1,13 @@
 package org.example.servletcrudapp.service.impl;
 
+import org.example.servletcrudapp.Exception.UserNotFoundException;
 import org.example.servletcrudapp.dto.CreateUserDto;
 import org.example.servletcrudapp.dto.UpdateUserDto;
 import org.example.servletcrudapp.model.User;
 import org.example.servletcrudapp.repository.UserRepository;
 import org.example.servletcrudapp.service.UserService;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,9 +39,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUserById(Long userId) {
-
-        userRepository.deleteUserById(userId) ;
+    public void deleteUserById(Long userId) throws SQLException {
+       // userRepository.findUserById(userId).orElseThrow(UserNotFoundException::new);
+        userRepository.deleteUserById(userId);
 
     }
 }

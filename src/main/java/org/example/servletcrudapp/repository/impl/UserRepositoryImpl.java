@@ -18,6 +18,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     private DBConnection dbConnection;
     private static final String TABLE_NAME = "users";
+    private static final String DELETE_USER_SQL = String.format("DELETE FROM %s WHERE id = ?", TABLE_NAME);
 
 
     public UserRepositoryImpl(DBConnection dbConnection) {
@@ -49,19 +50,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void deleteUserById(Long id) {
+    public void deleteUserById(Long id) throws SQLException {
         try (Connection connection = dbConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement(DELETE_USER_SQL);
+        ) {
             statement.setLong(1, id);
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected == 0) {
-               throw new UserNotFoundException( "Id not Found");
-            } else {
-                System.out.println("User with id " + id + " deleted");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error when deleting a user " + e.getMessage());
+            statement.executeUpdate();
         }
-
     }
 }
