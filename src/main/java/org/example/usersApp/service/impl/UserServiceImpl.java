@@ -6,6 +6,7 @@ import org.example.usersApp.model.User;
 import org.example.usersApp.repository.UserRepository;
 import org.example.usersApp.service.UserService;
 
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +28,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(CreateUserDto dto) {
-        return null;
+    public void createUser(CreateUserDto dto) {
+        userRepository.createUser(dto);
+//        PrintWriter writer = resp.getWriter();
+//        writer.println("service invoked");
+        //return new User(dto.firstName(), dto.lastName(), dto.age());
     }
 
     @Override

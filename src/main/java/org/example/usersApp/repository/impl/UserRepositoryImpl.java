@@ -36,8 +36,15 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User createUser(CreateUserDto dto) {
-        return null;
+    public void createUser(CreateUserDto dto) {
+        String sql = "INSERT INTO users VALUES(?,?,?)";
+        try (PreparedStatement ps = dbConnection.getConnection().prepareStatement(sql)) {
+            ps.setString(1, dto.firstName());
+            ps.setString(2, dto.lastName());
+            ps.setInt(3, dto.age());
+            ps.executeUpdate();
+        } catch (SQLException e) {throw new RuntimeException();}
+        //return new User(dto.firstName(), dto.lastName(), dto.age());
     }
 
     @Override

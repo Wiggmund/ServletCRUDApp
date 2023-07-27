@@ -5,18 +5,23 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.usersApp.dto.CreateUserDto;
 import org.example.usersApp.service.UserService;
+import org.postgresql.util.LruCache;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/user")
 public class UserController extends HttpServlet {
-    private final UserService userService;
+    private UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
+    public UserController(){
 
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //TODO: 1) all users
@@ -32,7 +37,14 @@ public class UserController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //TODO: create
         //TODO: check whether all fields are supplied
-        super.doPost(req, resp);
+        String firstName = req.getParameter("firstName");
+        String lastName = req.getParameter("lastName");
+        Integer age = Integer.valueOf(req.getParameter("age"));
+        userService.createUser(new CreateUserDto(firstName, lastName, age));
+        PrintWriter writer = resp.getWriter();
+        writer.println("service invoked");
+
+
     }
 
     @Override

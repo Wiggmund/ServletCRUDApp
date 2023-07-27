@@ -4,4 +4,5 @@ public record CreateUserDto(
         String firstName,
         String lastName,
         Integer age
-) {}
+) {
+}
