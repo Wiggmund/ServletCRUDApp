@@ -1,4 +1,4 @@
-package org.example.usersApp.dto;
+package org.examplle.servletcrudapp.dto;
 
 public record CreateUserDto(
         String firstName,

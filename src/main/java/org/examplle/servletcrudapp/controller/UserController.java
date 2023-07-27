@@ -1,15 +1,15 @@
-package org.example.usersApp.controller;
+package org.examplle.servletcrudapp.controller;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.usersApp.db.DBConnectionDriverManager;
-import org.example.usersApp.model.User;
-import org.example.usersApp.repository.impl.UserRepositoryImpl;
-import org.example.usersApp.service.UserService;
-import org.example.usersApp.service.impl.UserServiceImpl;
+import org.examplle.servletcrudapp.db.DBConnectionDriverManager;
+import org.examplle.servletcrudapp.model.User;
+import org.examplle.servletcrudapp.repository.impl.UserRepositoryImpl;
+import org.examplle.servletcrudapp.service.UserService;
+import org.examplle.servletcrudapp.service.impl.UserServiceImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;

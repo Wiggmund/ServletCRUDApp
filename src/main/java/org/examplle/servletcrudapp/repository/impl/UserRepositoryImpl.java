@@ -1,10 +1,10 @@
-package org.example.usersApp.repository.impl;
+package org.examplle.servletcrudapp.repository.impl;
 
-import org.example.usersApp.db.DBConnection;
-import org.example.usersApp.dto.CreateUserDto;
-import org.example.usersApp.dto.UpdateUserDto;
-import org.example.usersApp.model.User;
-import org.example.usersApp.repository.UserRepository;
+import org.examplle.servletcrudapp.db.DBConnection;
+import org.examplle.servletcrudapp.dto.CreateUserDto;
+import org.examplle.servletcrudapp.dto.UpdateUserDto;
+import org.examplle.servletcrudapp.model.User;
+import org.examplle.servletcrudapp.repository.UserRepository;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package org.example.usersApp.db;
+package org.examplle.servletcrudapp.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
