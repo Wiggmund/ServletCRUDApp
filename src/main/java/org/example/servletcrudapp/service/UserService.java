@@ -1,8 +1,8 @@
-package org.example.usersApp.service;
+package org.example.servletcrudapp.service;
 
-import org.example.usersApp.dto.CreateUserDto;
-import org.example.usersApp.dto.UpdateUserDto;
-import org.example.usersApp.model.User;
+import org.example.servletcrudapp.dto.CreateUserDto;
+import org.example.servletcrudapp.dto.UpdateUserDto;
+import org.example.servletcrudapp.model.User;
 
 import java.util.List;
 import java.util.Optional;

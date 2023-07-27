@@ -1,4 +1,4 @@
-package org.example.usersApp.exception;
+package org.example.servletcrudapp.exception;
 
 public class ErrorResponse {
     private final String error;
