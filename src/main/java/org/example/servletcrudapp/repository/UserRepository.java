@@ -1,8 +1,8 @@
-package org.examplle.servletcrudapp.repository;
+package org.example.servletcrudapp.repository;
 
-import org.examplle.servletcrudapp.dto.CreateUserDto;
-import org.examplle.servletcrudapp.dto.UpdateUserDto;
-import org.examplle.servletcrudapp.model.User;
+import org.example.servletcrudapp.model.User;
+import org.example.servletcrudapp.dto.CreateUserDto;
+import org.example.servletcrudapp.dto.UpdateUserDto;
 
 import java.sql.SQLException;
 import java.util.List;
