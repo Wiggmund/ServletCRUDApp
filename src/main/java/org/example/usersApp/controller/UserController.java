@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.usersApp.db.DBConnectionDriverManager;
 import org.example.usersApp.dto.UpdateUserDto;
+import org.example.usersApp.model.User;
 import org.example.usersApp.repository.impl.UserRepositoryImpl;
 import org.example.usersApp.service.UserService;
 import org.example.usersApp.service.impl.UserServiceImpl;
@@ -26,7 +27,7 @@ public class UserController extends HttpServlet {
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
     private static final String AGE = "age";
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -61,27 +62,24 @@ public class UserController extends HttpServlet {
         Map<String, String> parameters = parsePUTBody(req);
 
         try {
-            userService.updateUser(new UpdateUserDto(
+            User updatedUser = userService.updateUser(new UpdateUserDto(
                     Long.parseLong(parameters.get(ID)),
                     parameters.get(FIRST_NAME),
                     parameters.get(LAST_NAME),
                     Integer.parseInt(parameters.get(AGE))
             ));
+            PrintWriter writer = resp.getWriter();
+            writer.println(updatedUser);
+            writer.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        PrintWriter writer = resp.getWriter();
-        writer.println("We are in the controller");
-        writer.close();
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //TODO: delete
         //TODO: for non existent id
-        userService.deleteUserById(1L);
-        super.doDelete(req, resp);
     }
 
     private Map<String, String> parsePUTBody(HttpServletRequest req) throws IOException {

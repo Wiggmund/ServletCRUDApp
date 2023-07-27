@@ -35,8 +35,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(UpdateUserDto dto) throws SQLException {
-//        userRepository.findUserById(dto.id()).orElseThrow(UserNotFoundException::new);
-        return userRepository.updateUser(dto);
+        userRepository.findUserById(dto.id()).orElseThrow(UserNotFoundException::new);
+        userRepository.updateUser(dto);
+        return userRepository.findUserById(dto.id()).orElseThrow(UserNotFoundException::new);
     }
 
     @Override

@@ -9,19 +9,19 @@ import org.example.usersApp.repository.UserRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 
 public class UserRepositoryImpl implements UserRepository {
-    public static void main(String[] args) {
-    }
     private final static String ID_COL = "id";
     private final static String FIRST_NAME_COL = "first_name";
     private final static String LAST_NAME_COL = "last_name";
     private final static String AGE_COL = "age";
+    private final static String UPDATE_USER_SQL = String.format(
+            "UPDATE users SET %s = ?, %s = ?, %s = ? WHERE %s = ?",
+            FIRST_NAME_COL, LAST_NAME_COL, AGE_COL, ID_COL);
     private DBConnection dbConnection;
 
     public UserRepositoryImpl(DBConnection dbConnection) {
@@ -48,24 +48,18 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User updateUser(UpdateUserDto dto) throws SQLException {
-        var updateSQL = String.format(
-                "UPDATE users SET %s = ?, %s = ?, %s = ? WHERE %s = ?",
-                FIRST_NAME_COL, LAST_NAME_COL, AGE_COL, ID_COL);
-
+    public int updateUser(UpdateUserDto dto) throws SQLException {
         try(
             Connection connection = dbConnection.getConnection();
-            PreparedStatement ps = connection.prepareStatement(updateSQL)
+            PreparedStatement ps = connection.prepareStatement(UPDATE_USER_SQL)
         ) {
             ps.setString(1, dto.firstName());
             ps.setString(2, dto.lastName());
             ps.setInt(3, dto.age());
             ps.setLong(4, dto.id());
 
-            ps.executeUpdate();
+            return ps.executeUpdate();
         }
-
-        return findUserById(dto.id()).orElseThrow(UserNotFoundException::new);
     }
 
     @Override
