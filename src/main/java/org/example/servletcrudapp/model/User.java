@@ -6,7 +6,8 @@ public class User {
     private String lastName;
     private Integer age;
 
-    public User(String first_name, String last_name, Integer age) {
+    public User(Long id, String first_name, String last_name, Integer age) {
+        this.id = id;
         this.firstName = first_name;
         this.lastName = last_name;
         this.age = age;

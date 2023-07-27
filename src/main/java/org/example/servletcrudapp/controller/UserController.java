@@ -57,8 +57,6 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO: update
-        //TODO: no duplicates
         Map<String, String> parameters = parsePUTBody(req);
 
         try {
