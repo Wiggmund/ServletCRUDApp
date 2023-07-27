@@ -5,7 +5,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.servletcrudapp.db.DBConnection;
 import org.example.servletcrudapp.db.DBConnectionDriverManager;
 import org.example.servletcrudapp.repository.impl.UserRepositoryImpl;
 import org.example.servletcrudapp.service.UserService;

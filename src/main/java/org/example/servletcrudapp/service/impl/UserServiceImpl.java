@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long userId) throws SQLException {
-       // userRepository.findUserById(userId).orElseThrow(UserNotFoundException::new);
+        userRepository.findUserById(userId).orElseThrow(UserNotFoundException::new);
         userRepository.deleteUserById(userId);
 
     }
