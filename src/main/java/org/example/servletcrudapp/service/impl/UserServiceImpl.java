@@ -29,8 +29,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(CreateUserDto dto) {
         userRepository.createUser(dto);
-        System.out.println("######### я перешел в сервис #############");
-        //return new User(dto.firstName(), dto.lastName(), dto.age());
     }
 
     @Override
