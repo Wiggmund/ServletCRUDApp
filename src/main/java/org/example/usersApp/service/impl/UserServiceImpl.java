@@ -30,8 +30,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(CreateUserDto dto) {
         userRepository.createUser(dto);
-//        PrintWriter writer = resp.getWriter();
-//        writer.println("service invoked");
+        System.out.println("######### я перешел в сервис #############");
         //return new User(dto.firstName(), dto.lastName(), dto.age());
     }
 

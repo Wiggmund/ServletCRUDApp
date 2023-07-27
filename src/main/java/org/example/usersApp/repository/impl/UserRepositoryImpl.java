@@ -37,14 +37,14 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void createUser(CreateUserDto dto) {
-        String sql = "INSERT INTO users VALUES(?,?,?)";
+        String sql = "INSERT INTO users (first_name, last_name, age) VALUES(?,?,?)";
         try (PreparedStatement ps = dbConnection.getConnection().prepareStatement(sql)) {
             ps.setString(1, dto.firstName());
             ps.setString(2, dto.lastName());
             ps.setInt(3, dto.age());
             ps.executeUpdate();
-        } catch (SQLException e) {throw new RuntimeException();}
-        //return new User(dto.firstName(), dto.lastName(), dto.age());
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while creating user", e);}
     }
 
     @Override
