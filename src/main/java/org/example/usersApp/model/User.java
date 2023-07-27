@@ -14,5 +14,15 @@ public class User {
 
     public User(Long userId, String firstName, String lastName, String age) {
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }
 
