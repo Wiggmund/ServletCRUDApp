@@ -11,9 +11,11 @@ import org.examplle.servletcrudapp.repository.impl.UserRepositoryImpl;
 import org.examplle.servletcrudapp.service.UserService;
 import org.examplle.servletcrudapp.service.impl.UserServiceImpl;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 @WebServlet("/user")
@@ -37,32 +39,17 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
-
-        //TODO: 1) all users
-        userService.getAllUsers();
-
-        //TODO: 2) user by id
-        String action = req.getParameter("action");
-        String userIdParam = req.getParameter("userId");
-        if (userIdParam != null && !userIdParam.isEmpty()) {
-            try {
-                long userId = Integer.parseInt(userIdParam);
-                Optional<User> user = userService.getUserById(userId);
-                if (user.isPresent()) {
-                    resp.setStatus(200);
-                    req.getRequestDispatcher("/index.jsp").forward(req, resp);
-                    out.println("<p>Пользователь с ID " + userId);
-                } else {
-                    resp.setStatus(404);
-                    out.println("<p>Пользователь с ID " + userId + " не найден</p>");
-                }
-            } catch (NumberFormatException e) {
-                out.println("<p>Некорректный ID пользователя</p>");
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+        try {
+            String id = req.getParameter(ID);
+            if (id == null) {
+                List<User> allUsers = userService.getAllUsers();
+                allUsers.forEach(out::println);
+            } else {
+                userService.getUserById(Long.parseLong(id));
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
