@@ -66,7 +66,6 @@ public class UserController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userIdParam = parsePUTBody(req).get(ID);
         PrintWriter writer = resp.getWriter();
-        writer.println(userIdParam);
 
         if (userIdParam == null || userIdParam.isEmpty()) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -74,7 +73,6 @@ public class UserController extends HttpServlet {
         }
 
         Long userId = Long.parseLong(userIdParam);
-
 
         try {
             userService.deleteUserById(userId);
