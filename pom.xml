@@ -9,15 +9,6 @@
     <version>1.0</version>
     <packaging>war</packaging>
 
-<!--    <distributionManagement>-->
-<!--        <repository>-->
-<!--            <uniqueVersion>false</uniqueVersion>-->
-<!--            <id>1</id>-->
-<!--            <name>Company Repository</name>-->
-<!--            <url>http://localhost/maven2</url>-->
-<!--            <layout>default</layout>-->
-<!--        </repository>-->
-<!--    </distributionManagement>-->
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -46,7 +37,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.27</version>
+            <version>42.6.0</version>
         </dependency>
     </dependencies>
 
