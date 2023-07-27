@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public class UserRepositoryImpl implements UserRepository {
     private DBConnection dbConnection;
-
+    private static final String TABLE_NAME = "users";
     public UserRepositoryImpl(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
     }
