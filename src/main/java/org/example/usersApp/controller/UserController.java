@@ -5,8 +5,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.usersApp.db.DBConnectionDriverManager;
 import org.example.usersApp.model.User;
+import org.example.usersApp.repository.impl.UserRepositoryImpl;
 import org.example.usersApp.service.UserService;
+import org.example.usersApp.service.impl.UserServiceImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +22,14 @@ public class UserController extends HttpServlet {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    public UserController() {
+        this(new UserServiceImpl(
+                new UserRepositoryImpl(
+                        new DBConnectionDriverManager()
+                )
+        ));
     }
 
     @Override
@@ -38,6 +49,7 @@ public class UserController extends HttpServlet {
                 Optional<User> user = userService.getUserById(userId);
                 if (user.isPresent()) {
                     resp.setStatus(200);
+                    req.getRequestDispatcher("/index.jsp").forward(req, resp);
                     out.println("<p>Пользователь с ID " + userId);
                 } else {
                     resp.setStatus(404);
