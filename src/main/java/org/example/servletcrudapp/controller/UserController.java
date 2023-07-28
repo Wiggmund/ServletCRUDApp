@@ -13,6 +13,7 @@ import org.example.servletcrudapp.exception.GlobalExceptionHandler;
 import org.example.servletcrudapp.model.User;
 import org.example.servletcrudapp.repository.impl.UserRepositoryImpl;
 import org.example.servletcrudapp.service.UserService;
+import org.example.servletcrudapp.service.impl.DuplicationService;
 import org.example.servletcrudapp.service.impl.UserServiceImpl;
 
 import java.io.BufferedReader;
@@ -38,8 +39,9 @@ public class UserController extends HttpServlet {
 
     public UserController() {
         this(new UserServiceImpl(
-                new UserRepositoryImpl(
-                        new DBConnectionDriverManager())));
+                new UserRepositoryImpl(new DBConnectionDriverManager()),
+                new DuplicationService(new UserRepositoryImpl(new DBConnectionDriverManager()))
+        ));
     }
 
     @Override
