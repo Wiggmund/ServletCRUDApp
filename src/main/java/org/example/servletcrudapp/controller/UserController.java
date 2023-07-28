@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.example.servletcrudapp.db.DBConnectionDriverManager;
 import org.example.servletcrudapp.dto.CreateUserDto;
 import org.example.servletcrudapp.dto.UpdateUserDto;
+import org.example.servletcrudapp.exception.ExceptionResponse;
 import org.example.servletcrudapp.exception.GlobalExceptionHandler;
 import org.example.servletcrudapp.model.User;
 import org.example.servletcrudapp.repository.impl.UserRepositoryImpl;
@@ -43,7 +44,8 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try (PrintWriter out = resp.getWriter()) {
+        PrintWriter out = resp.getWriter();
+        try {
             String id = req.getParameter(ID);
 
             if (id == null) {
@@ -54,7 +56,12 @@ public class UserController extends HttpServlet {
                 out.println(user);
             }
         } catch (RuntimeException exception) {
-            GlobalExceptionHandler.handleException(exception);
+            ExceptionResponse exceptionResponse = GlobalExceptionHandler.handleException(exception);
+            resp.setStatus(exceptionResponse.statusCode());
+            out.println("\n-------EXCEPTION-------\n");
+            out.println("\tMessage:\t" + exceptionResponse.message());
+            out.println("\tTimestamp:\t" + exceptionResponse.message());
+            out.close();
         }
     }
 
