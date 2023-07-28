@@ -4,18 +4,16 @@ import org.example.servletcrudapp.dto.CreateUserDto;
 import org.example.servletcrudapp.dto.UpdateUserDto;
 import org.example.servletcrudapp.model.User;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
-    List<User> getAllUsers() throws SQLException;
+    List<User> getAllUsers();
 
-    User getUserById(Long userId) throws SQLException;
+    User getUserById(Long userId);
 
-    User updateUser(UpdateUserDto dto) throws SQLException;
+    User updateUser(UpdateUserDto dto);
 
-    void deleteUserById(Long userId) throws SQLException;
+    void deleteUserById(Long userId);
 
     void createUser(CreateUserDto dto);
 }

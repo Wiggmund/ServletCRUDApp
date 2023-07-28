@@ -5,10 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.example.servletcrudapp.db.DBConnectionDriverManager;
 import org.example.servletcrudapp.dto.CreateUserDto;
 import org.example.servletcrudapp.dto.UpdateUserDto;
+import org.example.servletcrudapp.exception.GlobalExceptionHandler;
 import org.example.servletcrudapp.model.User;
 import org.example.servletcrudapp.repository.impl.UserRepositoryImpl;
 import org.example.servletcrudapp.service.UserService;
@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,16 +53,16 @@ public class UserController extends HttpServlet {
                 User user = userService.getUserById(Long.parseLong(id));
                 out.println(user);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (RuntimeException exception) {
+            GlobalExceptionHandler.handleException(exception);
         }
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, String> parameters = parsePUTBody(req);
-
         try {
+            Map<String, String> parameters = parsePUTBody(req);
+
             User updatedUser = userService.updateUser(new UpdateUserDto(
                     Long.parseLong(parameters.get(ID)),
                     parameters.get(FIRST_NAME),
@@ -73,36 +72,37 @@ public class UserController extends HttpServlet {
             PrintWriter writer = resp.getWriter();
             writer.println(updatedUser);
             writer.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (RuntimeException exception) {
+            GlobalExceptionHandler.handleException(exception);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String firstName = req.getParameter("firstName");
-        String lastName = req.getParameter("lastName");
-        Integer age = Integer.valueOf(req.getParameter("age"));
-        userService.createUser(new CreateUserDto(firstName, lastName, age));
+        try {
+            String firstName = req.getParameter("firstName");
+            String lastName = req.getParameter("lastName");
+            Integer age = Integer.valueOf(req.getParameter("age"));
+            userService.createUser(new CreateUserDto(firstName, lastName, age));
+        } catch (RuntimeException exception) {
+            GlobalExceptionHandler.handleException(exception);
+        }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userIdParam = parsePUTBody(req).get(ID);
-        PrintWriter writer = resp.getWriter();
-
-        if (userIdParam == null || userIdParam.isEmpty()) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
-
-        Long userId = Long.parseLong(userIdParam);
-
         try {
+            String userIdParam = parsePUTBody(req).get(ID);
+
+            if (userIdParam == null || userIdParam.isEmpty()) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+
+            Long userId = Long.parseLong(userIdParam);
             userService.deleteUserById(userId);
-        } catch (SQLException e) {
-            writer.println(e.getMessage());
-            throw new RuntimeException(e);
+        } catch (RuntimeException exception) {
+            GlobalExceptionHandler.handleException(exception);
         }
     }
 

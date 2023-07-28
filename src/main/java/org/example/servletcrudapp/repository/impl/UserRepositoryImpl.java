@@ -82,14 +82,15 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void createUser(CreateUserDto dto) {
-        try (PreparedStatement ps = dbConnection.getConnection().prepareStatement(CREATE_USER_SQL)) {
+    public void createUser(CreateUserDto dto) throws SQLException {
+        try (
+            Connection connection = dbConnection.getConnection();
+            PreparedStatement ps = connection.prepareStatement(CREATE_USER_SQL)
+        ) {
             ps.setString(1, dto.firstName());
             ps.setString(2, dto.lastName());
             ps.setInt(3, dto.age());
             ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException("Error while creating user", e);
         }
     }
 

@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface UserRepository {
     List<User> findAllUsers() throws SQLException;
     Optional<User> findUserById(Long userId) throws SQLException;
-    void createUser(CreateUserDto dto);
+    void createUser(CreateUserDto dto) throws SQLException;
     int updateUser(UpdateUserDto dto) throws SQLException;
     void deleteUserById(Long id) throws SQLException;
 }
