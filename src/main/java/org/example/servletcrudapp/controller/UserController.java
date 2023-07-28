@@ -56,11 +56,7 @@ public class UserController extends HttpServlet {
                 out.println(user);
             }
         } catch (RuntimeException exception) {
-            ExceptionResponse exceptionResponse = GlobalExceptionHandler.handleException(exception);
-            resp.setStatus(exceptionResponse.statusCode());
-            out.println("\n-------EXCEPTION-------\n");
-            out.println("\tMessage:\t" + exceptionResponse.message());
-            out.println("\tTimestamp:\t" + exceptionResponse.message());
+            GlobalExceptionHandler.handleException(exception);
             out.close();
         }
     }

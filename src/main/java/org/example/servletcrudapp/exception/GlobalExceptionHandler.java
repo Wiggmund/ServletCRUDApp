@@ -19,6 +19,10 @@ public class GlobalExceptionHandler {
             return handleException(exception);
         }
 
+        if (initialException instanceof NumberFormatException exception) {
+            return handleException(exception);
+        }
+
         if (initialException instanceof IllegalArgumentException exception) {
             return handleException(exception);
         }
@@ -48,5 +52,9 @@ public class GlobalExceptionHandler {
 
     private static ExceptionResponse handleException(DBInternalException exception) {
         return buildResponse(exception.getMessage(), HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+
+    private static ExceptionResponse handleException(NumberFormatException exception) {
+        return buildResponse(exception.getMessage(), HttpServletResponse.SC_BAD_REQUEST);
     }
 }
