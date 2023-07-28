@@ -16,7 +16,6 @@ public class DBConnectionDriverManager implements DBConnection {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 }

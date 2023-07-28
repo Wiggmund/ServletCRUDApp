@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    List<User> getAllUsers();
+    List<User> getAllUsers() throws SQLException;
 
-    Optional<User> getUserById(Long userId);
+    User getUserById(Long userId) throws SQLException;
 
     User updateUser(UpdateUserDto dto) throws SQLException;
 

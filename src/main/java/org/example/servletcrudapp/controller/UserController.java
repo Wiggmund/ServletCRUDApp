@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import org.example.servletcrudapp.db.DBConnectionDriverManager;
 import org.example.servletcrudapp.dto.CreateUserDto;
 import org.example.servletcrudapp.dto.UpdateUserDto;
@@ -20,6 +21,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet("/user")
@@ -42,13 +44,19 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO: 1) all users
-        //userService.getAllUsers();
-        //TODO: 2) user by id
-        //TODO: for non existent id
-        //userService.getUserById();
+        try (PrintWriter out = resp.getWriter()) {
+            String id = req.getParameter(ID);
 
-        super.doGet(req, resp);
+            if (id == null) {
+                List<User> allUsers = userService.getAllUsers();
+                allUsers.forEach(out::println);
+            } else {
+                User user = userService.getUserById(Long.parseLong(id));
+                out.println(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
