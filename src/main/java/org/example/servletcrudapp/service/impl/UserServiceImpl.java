@@ -42,6 +42,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(CreateUserDto dto) {
         try {
+            boolean doTheSameUserExist = duplicationService.doTheSameUserExist(dto.firstName(), dto.lastName());
+            if (doTheSameUserExist) {
+                throw new UserAlreadyExistException();
+            }
             userRepository.createUser(dto);
         } catch (SQLException e) {
             throw new DBInternalException(e.getMessage());
