@@ -94,6 +94,7 @@ public class UserController extends HttpServlet {
         } catch (RuntimeException exception) {
             GlobalExceptionHandler.handleException(exception);
         }
+        resp.sendRedirect(req.getContextPath() + "/userForm.jsp");
     }
 
     @Override
