@@ -59,7 +59,8 @@ public class UserController extends HttpServlet {
             }
         } catch (RuntimeException exception) {
             GlobalExceptionHandler.handleException(exception);
-            out.close();
+		out.println(exception);
+		out.close();
         }
     }
 
