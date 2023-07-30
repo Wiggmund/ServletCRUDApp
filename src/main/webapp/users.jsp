@@ -37,7 +37,7 @@
                             <td>${user.lastName}</td>
                             <td>${user.age}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/userUpdate.jsp">
+                                <a href="${pageContext.request.contextPath}/userUpdate.jsp?id=${user.id}&firstName=${user.firstName}&lastName=${user.lastName}&age=${user.age}">
                                     <button class="btn btn-primary">Edit</button>
                                 </a>
                                 <button id="${user.id}" class="btn btn-danger delete-user-btn">Delete</button>

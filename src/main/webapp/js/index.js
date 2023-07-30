@@ -34,7 +34,6 @@ function updateUser() {
 	});
 }
 
-
 function doDisableAllButtons(value) {
 	const arg = value === true ? "true" : "false";
 	document.querySelectorAll(".btn").forEach(btn => btn.setAttribute("disabled", arg));

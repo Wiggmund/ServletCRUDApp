@@ -4,51 +4,31 @@
 <% String exception = request.getParameter("exception"); %>
 
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Error Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 30px;
-            background-color: #ffffff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #ff0000;
-            text-align: center;
-        }
-        p {
-            font-size: 18px;
-            text-align: center;
-        }
-        .back-btn {
-            display: block;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-    </style>
-</head>
-<body>
-    <div class = "container">
-    <h1>
-        Oops :( Error
-        ${exception.statusCode}
-    </h1>
-        <p>
-            ${exception.message}
-        </p>
-    <a href="http://localhost:8081/servletcrud/user" class="back-btn">
-        <button>Click to go Home</button>
-    </a>
-</div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Error Page</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        >
+    </head>
+    <body>
+        <div class="container justify-content-center align-content-center">
+            <div class="row mb-2">
+                <h1 class="display-1 text-center text-danger">Oops:( Error ${exception.statusCode}</h1>
+            </div>
+            <div class="row mb-5">
+                <p class="lead">${exception.message}</p>
+            </div>
+            <div class="row justify-content-center align-content-center">
+                <a href="http://localhost:8081/servletcrud/user" class="btn btn-outline-primary btn-lg w-25" role="button">
+                    Click to go Home
+                </a>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    </body>
 </html>

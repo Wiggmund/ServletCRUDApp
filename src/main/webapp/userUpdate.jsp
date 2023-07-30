@@ -19,22 +19,22 @@
 				<form action="${pageContext.request.contextPath}/user" method="put">
 					<div class="mb-3">
 						<label for="id" class="form-label">User id:</label>
-						<input type="text" class="form-control update-user-input" id="id" name="id" required>
+						<input type="text" class="form-control update-user-input" id="id" name="id" required value="<%= request.getParameter("id")%>">
 					</div>
 
 					<div class="mb-3">
 						<label for="firstName" class="form-label">New first name:</label>
-						<input type="text" class="form-control update-user-input" id="firstName" name="firstName" required>
+						<input type="text" class="form-control update-user-input" id="firstName" name="firstName" required value="<%= request.getParameter("firstName")%>">
 					</div>
 
 					<div class="mb-3">
 						<label for="lastName" class="form-label">New last name:</label>
-						<input type="text" class="form-control update-user-input" id="lastName" name="lastName" required>
+						<input type="text" class="form-control update-user-input" id="lastName" name="lastName" required value="<%= request.getParameter("lastName")%>">
 					</div>
 
 					<div class="mb-3">
 						<label for="age" class="form-label">New age:</label>
-						<input type="number" class="form-control update-user-input" id="age" name="age" required>
+						<input type="number" class="form-control update-user-input" id="age" name="age" required value="<%= request.getParameter("age")%>">
 					</div>
 
 					<button type="submit" class="btn btn-primary" id="update-user-btn">Update user</button>
