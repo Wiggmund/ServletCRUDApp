@@ -1,5 +1,6 @@
 package org.example.servletcrudapp.controller;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -31,6 +32,7 @@ public class UserController extends HttpServlet {
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
     private static final String AGE = "age";
+    private static final String USERS_LIST_JSP = "/users.jsp";
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -46,21 +48,20 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PrintWriter out = resp.getWriter();
+        ServletContext servletContext = getServletContext();
+
         try {
             String id = req.getParameter(ID);
 
             if (id == null) {
                 List<User> allUsers = userService.getAllUsers();
-                allUsers.forEach(out::println);
+                req.setAttribute("usersList", allUsers);
+                servletContext.getRequestDispatcher(USERS_LIST_JSP).forward(req, resp);
             } else {
                 User user = userService.getUserById(Long.parseLong(id));
-                out.println(user);
             }
         } catch (RuntimeException exception) {
             GlobalExceptionHandler.handleException(exception);
-		out.println(exception);
-		out.close();
         }
     }
 
