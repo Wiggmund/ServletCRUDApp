@@ -19,7 +19,6 @@ import org.example.servletcrudapp.service.impl.UserServiceImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -42,14 +41,12 @@ public class UserController extends HttpServlet {
     public UserController() {
         this(new UserServiceImpl(
                 new UserRepositoryImpl(new DBConnectionDriverManager()),
-                new DuplicationService(new UserRepositoryImpl(new DBConnectionDriverManager()))
-        ));
+                new DuplicationService(new UserRepositoryImpl(new DBConnectionDriverManager()))));
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext servletContext = getServletContext();
-
         try {
             String id = req.getParameter(ID);
 
@@ -61,7 +58,7 @@ public class UserController extends HttpServlet {
                 User user = userService.getUserById(Long.parseLong(id));
             }
         } catch (RuntimeException exception) {
-            GlobalExceptionHandler.handleException(exception);
+            renderException(exception, req, resp);
         }
     }
 
@@ -70,17 +67,13 @@ public class UserController extends HttpServlet {
         try {
             Map<String, String> parameters = parsePUTBody(req);
 
-            User updatedUser = userService.updateUser(new UpdateUserDto(
+            userService.updateUser(new UpdateUserDto(
                     Long.parseLong(parameters.get(ID)),
                     parameters.get(FIRST_NAME),
                     parameters.get(LAST_NAME),
-                    Integer.parseInt(parameters.get(AGE))
-            ));
-            PrintWriter writer = resp.getWriter();
-            writer.println(updatedUser);
-            writer.close();
+                    Integer.parseInt(parameters.get(AGE))));
         } catch (RuntimeException exception) {
-            GlobalExceptionHandler.handleException(exception);
+            renderException(exception, req, resp);
         }
     }
 
@@ -92,9 +85,9 @@ public class UserController extends HttpServlet {
             Integer age = Integer.valueOf(req.getParameter("age"));
             userService.createUser(new CreateUserDto(firstName, lastName, age));
         } catch (RuntimeException exception) {
-            GlobalExceptionHandler.handleException(exception);
+            renderException(exception, req, resp);
         }
-        resp.sendRedirect(req.getContextPath() + "/userForm.jsp");
+        resp.sendRedirect(req.getContextPath() + "/userCreate.jsp");
     }
 
     @Override
@@ -110,8 +103,17 @@ public class UserController extends HttpServlet {
             Long userId = Long.parseLong(userIdParam);
             userService.deleteUserById(userId);
         } catch (RuntimeException exception) {
-            GlobalExceptionHandler.handleException(exception);
+            renderException(exception, req, resp);
         }
+    }
+
+    private void renderException(RuntimeException exception, HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        ServletContext servletContext = getServletContext();
+
+        ExceptionResponse exceptionResponse = GlobalExceptionHandler.handleException(exception);
+        req.setAttribute("exception", exceptionResponse);
+        servletContext.getRequestDispatcher("/error.jsp").forward(req, resp);
     }
 
     private Map<String, String> parsePUTBody(HttpServletRequest req) throws IOException {

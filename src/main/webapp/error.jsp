@@ -46,10 +46,9 @@
         <p>
             ${exception.message}
         </p>
-<a
-        href="http://localhost:8081/servletcrud/user">
-    <button>Click to go Home</button>
-</a>
+    <a href="http://localhost:8081/servletcrud/user" class="back-btn">
+        <button>Click to go Home</button>
+    </a>
 </div>
 </body>
 </html>

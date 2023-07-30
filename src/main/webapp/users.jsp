@@ -8,14 +8,15 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <script src="./js/index.js"></script>
 </head>
 <body>
     <div class="container p-3">
         <div class="row mb-3">
             <h2 class="text-center">List of users:</h2>
         </div>
-        <div class="row mb-3 justify-content-sm-center">
-            <a class="btn btn-outline-primary btn-lg" href="${pageContext.request.contextPath}/temp.jsp" role="button">Create a new user</a>
+        <div class="row mb-5 justify-content-sm-center">
+            <a class="btn btn-outline-primary btn-lg w-25" href="${pageContext.request.contextPath}/userCreate.jsp" role="button">Create a new user</a>
         </div>
         <div class="row mb-3">
             <table class="table table-striped">
@@ -36,7 +37,7 @@
                             <td>${user.lastName}</td>
                             <td>${user.age}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/edit.jsp">
+                                <a href="${pageContext.request.contextPath}/userUpdate.jsp">
                                     <button class="btn btn-primary">Edit</button>
                                 </a>
                                 <button id="${user.id}" class="btn btn-danger delete-user-btn">Delete</button>
@@ -55,39 +56,6 @@
     <script>
         const btnClass = ".delete-user-btn";
         document.querySelectorAll(btnClass).forEach(btn => btn.addEventListener("click", deleteUserById))
-
-        function deleteUserById() {
-            doDisableAllButtons(true);
-            const data = { id: this.id };
-            const url = document.location.href;
-
-            fetch(url, {
-                method: "DELETE",
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: createUrlEncodedBody(data),
-            }).then(res => {
-                window.location.reload();
-            });
-        }
-
-        function doDisableAllButtons(value) {
-            const arg = value === true ? "true" : "false";
-            document.querySelectorAll(".btn").forEach(btn => btn.setAttribute("disabled", arg));
-        }
-
-        function createUrlEncodedBody(data) {
-            const formBody = [];
-
-            for (let key in data) {
-                let encodedKey = encodeURIComponent(key);
-                let encodedValue = encodeURIComponent(data[key]);
-                formBody.push(encodedKey + "=" + encodedValue);
-            }
-
-            return formBody.join("&");
-        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
