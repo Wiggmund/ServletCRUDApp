@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.servletcrudapp.db.DBConnectionDriverManager;
+import org.example.servletcrudapp.db.PostgreSQLConfig;
 import org.example.servletcrudapp.dto.CreateUserDto;
 import org.example.servletcrudapp.dto.UpdateUserDto;
 import org.example.servletcrudapp.exception.ExceptionResponse;
@@ -37,8 +38,8 @@ public class UserController extends HttpServlet {
 
     public UserController() {
         this(new UserServiceImpl(
-                new UserRepositoryImpl(new DBConnectionDriverManager()),
-                new DuplicationService(new UserRepositoryImpl(new DBConnectionDriverManager()))));
+                new UserRepositoryImpl(new DBConnectionDriverManager(new PostgreSQLConfig())),
+                new DuplicationService(new UserRepositoryImpl(new DBConnectionDriverManager(new PostgreSQLConfig())))));
     }
 
     @Override
