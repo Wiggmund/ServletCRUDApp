@@ -1,18 +1,17 @@
 package org.example.servletcrudapp.db;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class PostgreSQLConfig implements DBConfig {
-    private final static String PROPS_FILE = "application.properties";
     private final String url;
     private final String username;
     private final String password;
     private final String driver;
 
     public PostgreSQLConfig() {
-        try (FileInputStream source = new FileInputStream(PROPS_FILE)) {
+        try(InputStream source = getClass().getClassLoader().getResourceAsStream("application.properties")) {
             Properties props = new Properties();
             props.load(source);
 
@@ -30,14 +29,17 @@ public class PostgreSQLConfig implements DBConfig {
         return url;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
 
+    @Override
     public String getDriver() {
         return driver;
     }
