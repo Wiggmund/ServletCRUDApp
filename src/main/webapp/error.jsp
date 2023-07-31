@@ -22,7 +22,7 @@
                 <p class="lead">${exception.message}</p>
             </div>
             <div class="row justify-content-center align-content-center">
-                <a href="http://localhost:8081/servletcrud/user" class="btn btn-outline-primary btn-lg w-25" role="button">
+                <a href="${pageContext.request.contextPath}/user" class="btn btn-outline-primary btn-lg w-25" role="button">
                     Click to go Home
                 </a>
             </div>
